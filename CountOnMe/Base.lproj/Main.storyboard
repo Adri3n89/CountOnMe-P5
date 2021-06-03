@@ -53,7 +53,7 @@
                                                 <rect key="frame" x="187.5" y="0.0" width="89.5" height="63"/>
                                                 <color key="backgroundColor" red="0.60392156860000001" green="0.57647058819999997" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" image="Capture d’écran 2021-04-27 à 09.53.50">
+                                                <state key="normal" image="delete">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                                 </state>
@@ -317,7 +317,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Capture d’écran 2021-04-27 à 09.53.50" width="296" height="204"/>
+        <image name="delete" width="386.5" height="258"/>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

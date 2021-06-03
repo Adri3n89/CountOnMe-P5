@@ -112,6 +112,16 @@ class CountOnMeTests: XCTestCase {
         XCTAssertEqual(calculator.calculString, "2 ÷ 0")
     }
 
+    func testGiven2Divide0_WhenPushOperator_ThenShow2Divide0() {
+        calculator.addNumber(number: "2")
+        calculator.addOperator(operator: " ÷ ")
+        calculator.addNumber(number: "0")
+
+        calculator.addOperator(operator: " + ")
+
+        XCTAssertEqual(calculator.calculString, "2 ÷ 0")
+    }
+
     func testGivenEmptyCalcul_WhenPushFirstPlus_ThenShowEmptyString() {
         calculator.addOperator(operator: " + ")
 

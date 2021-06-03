@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appstore" translatesAutoresizingMaskIntoConstraints="NO" id="nlx-fb-m83">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="nlx-fb-m83">
                                 <rect key="frame" x="100" y="306.5" width="214" height="283"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nlx-fb-m83" secondAttribute="height" multiplier="203:268" id="X3d-7A-IQ9"/>
@@ -39,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="appstore" width="1024" height="1024"/>
+        <image name="launchScreen" width="527.5" height="527.5"/>
     </resources>
 </document>

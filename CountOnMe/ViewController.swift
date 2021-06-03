@@ -9,12 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+// MARK: - @IBOUTLETS
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     @IBOutlet var funcButtons: [UIButton]!
     var calculator: Calculator!
 
-    // View Life cycles
+// MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         calculator = Calculator()
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    // View actions
+// MARK: - @IBACTIONS
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         calculator.addNumber(number: sender.titleLabel!.text!)
     }
@@ -31,7 +32,7 @@ class ViewController: UIViewController {
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
         calculator.addOperator(operator: " + ")
     }
-    
+
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
         calculator.addOperator(operator: " - ")
     }
@@ -47,36 +48,38 @@ class ViewController: UIViewController {
     @IBAction func tappedDivisionButton(_ sender: UIButton) {
         calculator.addOperator(operator: " ÷ ")
     }
-    
+
     @IBAction func tappedACButton(_ sender: UIButton) {
         calculator.ACButton()
     }
-    
+
     @IBAction func tappedDeleteButton(_ sender: UIButton) {
         calculator.deleteButton()
     }
-    
+
     @IBAction func tappedDecimalButton(_ sender: UIButton) {
         calculator.addDecimal(point: ".")
     }
-    
-    func setupTextView() {
+
+// MARK: - PRIVATE FUNC
+    private func setupTextView() {
         textView.text = calculator.calculString
         textView.layer.cornerRadius = numberButtons[0].frame.height / 2
     }
 
 }
 
+// MARK: - EXTENSION
 extension ViewController: CalculatorDelegate {
-    
+    // definition of protocol methods
+
     func alert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
         self.present(alertController, animated: true)
     }
-    
+
     func setupCalcul(calculString: String) {
         textView.text = calculString
     }
 }
-
