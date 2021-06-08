@@ -74,7 +74,7 @@ class Calculator {
         let decimal = NumberFormatter()
         decimal.minimumFractionDigits = 0
         decimal.maximumFractionDigits = 4
-        return decimal.string(from: NSNumber(value: result))!
+        return decimal.string(from: NSNumber(value: result)) ?? "error"
     }
 
     // proceed an operation by checking the operand and the element before and after it and remove them to add the result instead
@@ -91,9 +91,7 @@ class Calculator {
         case "÷": result = left / right
         default: delegate?.alert(title: "Zéro !", message: "Opérateur Inconnu")
         }
-        element.remove(at: index-1)
-        element.remove(at: index-1)
-        element.remove(at: index-1)
+        element.removeSubrange(index-1...index+1)
         element.insert("\(result)", at: index-1)
         return element
     }
@@ -119,7 +117,6 @@ class Calculator {
 
     // add operator to calculString and check before if a result exist to clear the calcul before add it
     func addNumber(number: String) {
-        NSLog(number)
         if expressionHaveResult {
             calculString = ""
         }

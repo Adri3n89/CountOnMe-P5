@@ -11,7 +11,9 @@ import UIKit
 class ViewController: UIViewController {
 // MARK: - @IBOUTLETS
     @IBOutlet weak var textView: UITextView!
-    var calculator = Calculator()
+
+// MARK: - PRIVATE VARIABLE
+    private var calculator = Calculator()
 
 // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
