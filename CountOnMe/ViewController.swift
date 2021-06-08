@@ -11,42 +11,26 @@ import UIKit
 class ViewController: UIViewController {
 // MARK: - @IBOUTLETS
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
-    @IBOutlet var funcButtons: [UIButton]!
-    var calculator: Calculator!
+    var calculator = Calculator()
 
 // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        calculator = Calculator()
         calculator.delegate = self
         setupTextView()
-        // Do any additional setup after loading the view.
     }
 
 // MARK: - @IBACTIONS
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        calculator.addNumber(number: sender.titleLabel!.text!)
+        calculator.addNumber(number: sender.titleLabel?.text ?? "")
     }
 
-    @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        calculator.addOperator(operator: " + ")
-    }
-
-    @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calculator.addOperator(operator: " - ")
+    @IBAction func tappedOperatorButton(_ sender: UIButton) {
+        calculator.addOperator(operator: ("  \(sender.titleLabel?.text ?? "")  "))
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calculator.doCalcul()
-    }
-
-    @IBAction func tappedMultiplicationButton(_ sender: UIButton) {
-        calculator.addOperator(operator: " x ")
-    }
-
-    @IBAction func tappedDivisionButton(_ sender: UIButton) {
-        calculator.addOperator(operator: " ÷ ")
     }
 
     @IBAction func tappedACButton(_ sender: UIButton) {
@@ -58,13 +42,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func tappedDecimalButton(_ sender: UIButton) {
-        calculator.addDecimal(point: ".")
+        calculator.addDecimal(point: sender.titleLabel?.text ?? "")
     }
 
 // MARK: - PRIVATE FUNC
     private func setupTextView() {
         textView.text = calculator.calculString
-        textView.layer.cornerRadius = numberButtons[0].frame.height / 2
+        textView.layer.cornerRadius = 25
     }
 
 }

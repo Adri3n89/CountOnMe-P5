@@ -23,32 +23,28 @@ class Calculator {
         }
     }
 
+    // MARK: - PRIVATE VARIABLES
     // make an array of strings by splitting the calculString variable
-    var elements: [String] {
+    private var elements: [String] {
         return calculString.split(separator: " ").map { "\($0)" }
     }
 
-    // check the last element of the calcul before make "="
-    var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷" && elements.last != ","
+    // check the last element of the calcul before make "=" or add operator
+    private var expressionIsCorrect: Bool {
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷" && elements.last != "."
     }
 
     // check the minimum element in the calcul
-    var expressionHaveEnoughElement: Bool {
+    private var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
 
-    // check if the last element in element isn't an operator
-    var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "x" && elements.last != "."
-    }
-
     // check in element a consecutive divide and 0
-    var divideBy0: Bool {
+    private var divideBy0: Bool {
         var dividezero = 0
         if elements.count > 2 {
             for index in 0...elements.count-2 {
-                if elements[index] == "÷" && elements[index+1] == "0" {
+                if elements[index] == "÷" && !(Double(elements[index+1]) ?? 1 > 0) {
                     dividezero += 1
                 }
             }
@@ -57,12 +53,12 @@ class Calculator {
     }
 
     // check if calculString have an index for an element with "=" if it is, calcul already have a result
-    var expressionHaveResult: Bool {
+    private var expressionHaveResult: Bool {
         return calculString.firstIndex(of: "=") != nil
     }
 
     // check if an element already have a decimal
-    var wrongDecimal: Bool {
+    private var wrongDecimal: Bool {
         var decimal = 0
         if elements.count > 0 {
             for index in 0...elements.count-1 where elements[index].last == "." {
@@ -70,6 +66,36 @@ class Calculator {
             }
         }
         return decimal != 0
+    }
+
+    // MARK: - PRIVATE FUNC
+    // format the resultat to show 2 decimals
+    private func decimalOrNot(result: Double) -> String {
+        let decimal = NumberFormatter()
+        decimal.minimumFractionDigits = 0
+        decimal.maximumFractionDigits = 4
+        return decimal.string(from: NSNumber(value: result))!
+    }
+
+    // proceed an operation by checking the operand and the element before and after it and remove them to add the result instead
+    private func makeOperation(element: [String], index: Int) -> [String] {
+        var element = element
+        let left = Double(element[index-1])!
+        let operand = element[index]
+        let right = Double(element[index+1])!
+        var result: Double = 0
+        switch operand {
+        case "+": result = left + right
+        case "-": result = left - right
+        case "x": result = left * right
+        case "÷": result = left / right
+        default: delegate?.alert(title: "Zéro !", message: "Opérateur Inconnu")
+        }
+        element.remove(at: index-1)
+        element.remove(at: index-1)
+        element.remove(at: index-1)
+        element.insert("\(result)", at: index-1)
+        return element
     }
 
     // MARK: - FUNCTIONS
@@ -83,7 +109,7 @@ class Calculator {
         } else if divideBy0 {
             delegate?.alert(title: "Zéro!", message: "Vous ne pouvez pas diviser par 0 !")
         } else {
-            if canAddOperator {
+            if expressionIsCorrect {
                 calculString.append(`operator`)
             } else {
                 delegate?.alert(title: "Zéro!", message: "Vous ne pouvez pas ajouter un opérateur !\nCorrigez le calcul !")
@@ -93,6 +119,7 @@ class Calculator {
 
     // add operator to calculString and check before if a result exist to clear the calcul before add it
     func addNumber(number: String) {
+        NSLog(number)
         if expressionHaveResult {
             calculString = ""
         }
@@ -175,36 +202,6 @@ class Calculator {
             }
         }
         calculString.append(" = \(decimalOrNot(result: Double(operationsToReduce.first!)!))")
-    }
-
-    // MARK: - PRIVATE FUNC
-    // format the resultat to show 2 decimals
-    private func decimalOrNot(result: Double) -> String {
-        let decimal = NumberFormatter()
-        decimal.minimumFractionDigits = 0
-        decimal.maximumFractionDigits = 2
-        return decimal.string(from: NSNumber(value: result))!
-    }
-
-    // proceed an operation by checking the operand and the element before and after it and remove them to add the result instead
-    private func makeOperation(element: [String], index: Int) -> [String] {
-        var element = element
-        let left = Double(element[index-1])!
-        let operand = element[index]
-        let right = Double(element[index+1])!
-        var result: Double = 0
-        switch operand {
-        case "+": result = left + right
-        case "-": result = left - right
-        case "x": result = left * right
-        case "÷": result = left / right
-        default: delegate?.alert(title: "Zéro !", message: "Opérateur Inconnu")
-        }
-        element.remove(at: index-1)
-        element.remove(at: index-1)
-        element.remove(at: index-1)
-        element.insert("\(result)", at: index-1)
-        return element
     }
 
 }
