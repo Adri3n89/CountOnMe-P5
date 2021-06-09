@@ -44,8 +44,10 @@ class Calculator {
         var dividezero = 0
         if elements.count > 2 {
             for index in 0...elements.count-2 {
-                if elements[index] == "÷" && !(Double(elements[index+1]) ?? 1 > 0) {
-                    dividezero += 1
+                if let elementDouble = Double(elements[index+1]) {
+                    if elements[index] == "÷" && elementDouble == 0 {
+                        dividezero += 1
+                    }
                 }
             }
         }
@@ -71,10 +73,14 @@ class Calculator {
     // MARK: - PRIVATE FUNC
     // format the resultat to show 2 decimals
     private func decimalOrNot(result: Double) -> String {
+        var resultFormated = ""
         let decimal = NumberFormatter()
         decimal.minimumFractionDigits = 0
         decimal.maximumFractionDigits = 4
-        return decimal.string(from: NSNumber(value: result)) ?? "error"
+        if let resultString = decimal.string(from: NSNumber(value: result)) {
+             resultFormated = resultString
+        }
+        return resultFormated
     }
 
     // proceed an operation by checking the operand and the element before and after it and remove them to add the result instead
