@@ -31,7 +31,7 @@ class Calculator {
 
     // check the last element of the calcul before make "=" or add operator
     private var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷" && elements.last != "."
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷" && elements.last?.last != "."
     }
 
     // check the minimum element in the calcul
@@ -42,7 +42,7 @@ class Calculator {
     // check in element a consecutive divide and 0
     private var divideBy0: Bool {
         var dividezero = 0
-        if elements.count > 2 {
+        if expressionHaveEnoughElement {
             for index in 0...elements.count-2 {
                 if let elementDouble = Double(elements[index+1]) {
                     if elements[index] == "÷" && elementDouble == 0 {
@@ -204,7 +204,9 @@ class Calculator {
                 operationsToReduce = makeOperation(element: operationsToReduce, index: 1)
             }
         }
-        calculString.append(" = \(decimalOrNot(result: Double(operationsToReduce.first!)!))")
+        if let result = Double(operationsToReduce[0]) {
+            calculString.append(" = \(decimalOrNot(result: result))")
+        }
     }
 
 }

@@ -24,11 +24,11 @@ class ViewController: UIViewController {
 
 // MARK: - @IBACTIONS
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        calculator.addNumber(number: sender.titleLabel?.text ?? "")
+        calculator.addNumber(number: string(sender))
     }
 
     @IBAction func tappedOperatorButton(_ sender: UIButton) {
-        calculator.addOperator(operator: ("  \(sender.titleLabel?.text ?? "")  "))
+        calculator.addOperator(operator: ("  \(string(sender))  "))
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
@@ -44,13 +44,21 @@ class ViewController: UIViewController {
     }
 
     @IBAction func tappedDecimalButton(_ sender: UIButton) {
-        calculator.addDecimal(point: sender.titleLabel?.text ?? "")
+        calculator.addDecimal(point: string(sender))
     }
 
 // MARK: - PRIVATE FUNC
     private func setupTextView() {
         textView.text = calculator.calculString
         textView.layer.cornerRadius = 25
+    }
+
+    private func string(_ sender: UIButton) -> String {
+        var number = ""
+        if let title = sender.titleLabel?.text {
+            number = title
+        }
+        return number
     }
 
 }
