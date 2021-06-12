@@ -174,7 +174,7 @@ class Calculator {
             return
         }
         let count = elements.count
-        if elements.count > 2 {
+        if expressionHaveEnoughElement {
             if elements[count-2] == "=" {
                 delegate?.alert(title: "Zéro!", message: "Vous ne pouvez pas refaire = \nsaisissez un nouveau calcul !")
                 return
